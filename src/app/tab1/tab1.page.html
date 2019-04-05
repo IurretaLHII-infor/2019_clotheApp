@@ -1,0 +1,93 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="secondary">
+          <ion-button onclick="document.getElementById('id01').style.display='block'">
+            <!--<button  style="width:auto;" src="/assets/icon/defaultAvatar.png" ></button>-->
+            <ion-icon slot="icon-only" name="contact"></ion-icon>
+          </ion-button >
+          <ion-button  onclick="getCurrentUser();">
+            <ion-icon slot="icon-only" name="search"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="primary">
+          <ion-button onclick="logOut();" color="secondary">
+            <ion-icon slot="icon-only" name="exit"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>HOME</ion-title>
+      </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+      <ion-img src="/assets/icon/home.png"></ion-img>
+    </ion-card>
+    <ion-card>
+      <ion-img src="/assets/icon/modaHombre.png"></ion-img>
+    </ion-card>
+    <ion-card>
+      <ion-img  src="/assets/icon/rebajas.png"></ion-img>
+    </ion-card>   
+</ion-content>
+
+<div id="id01" class="modal">
+  
+    <form class="modal-content animate" action="/action_page.php" name="loginForm">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img src="/assets/icon/avatar.png" alt="Avatar" class="avatar">
+      </div>
+  
+      <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter email" ng-model="uName" name="uname" id="userEmail" required>
+  
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" ng-model="uPass" name="upass" id="userPass" required>
+
+        <span id="confirmMessage" class="confirmMessage"></span>
+          
+        <button type="button" value="submit" id="login" onclick="signInButton();">Login</button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+
+      </div>
+  
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="button" class="registerbtn" onclick="document.getElementById('id02').style.display='block'">Register now</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="id02" class="modal">
+  
+      <form class="modal-content animate" name="" action="/action_page.php">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="/assets/icon/avatar.png" alt="Avatar" class="avatar">
+        </div>
+    
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" id="username" required>
+
+          <label for="uname"><b>Email</b></label>
+          <input type="text" placeholder="Enter Email" name="email" id="email" required>
+    
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" id="pass" required>
+
+          <label for="psw"><b>Comfirm Password</b></label>
+          <input type="password" placeholder="Repeat Password" name="compsw" id="comfpass" onkeyup="checkPass(); return false;" required>
+          <span id="confirmMessage" class="confirmMessage"></span>
+            
+          <button type="button" onclick="signUpButton();">Save</button>
+        </div>
+    
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+      </form>
+  </div>

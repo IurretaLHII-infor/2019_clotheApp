@@ -1,0 +1,100 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="secondary">
+            <ion-button onclick="document.getElementById('clotheModal').style.display='block'">
+                <ion-icon slot="icon-only" name="add"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            SHOP
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-card *ngFor="let item of clotheList">
+        <ion-card-header>
+            <img src="assets/icon/camiseta.png" class="image-clothe"/>
+            <ion-card-subtitle></ion-card-subtitle>
+            <ion-card-title>{{ item.name }}</ion-card-title>
+            </ion-card-header>
+                
+            <ion-card-content>
+                    {{ item.price }}EUR
+            </ion-card-content>
+    </ion-card>
+
+</ion-content>
+
+<div id="clotheModal" class="modal">
+
+    <form class="modal-content animate" action="/action_page.php" name="addClotheForm">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('clotheModal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        </div>
+        <div class="container">
+            <div class="file-container">
+                <input type="file" id="clothePhoto" name="file" onchange="uploadImage()">
+                <img id="cotheImg" src="">
+            </div>
+            <div>
+
+            </div>
+            <div>
+                <label for="category"><b>Categoria  </b></label>
+                <select name="categoryList" class="form-control combobox-style" id="categoryList">
+                    <option>Pantalones</option>
+                    <option>Camisas</option>
+                    <option>Camisetas</option>
+                    <option>Chaquetas</option>
+                    <option>Sudaderas</option>
+                    <option>Accesorios</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="clotheName"><b>Nombre</b></label>
+                <input type="text" placeholder="Inserta el nombre" name="cName" id="cName" required>
+            </div>
+
+
+            <div>
+                <label for="clothePrice"><b>Precio  </b></label>
+                <input type="number" placeholder="Inserta precio" name="cPrice" id="cPrice" required>
+            </div>
+
+            <div>
+                <label for="sex"><b>Sexo </b></label>
+                <select name="sexList" class="form-control combobox-style" id="sexList">
+                    <option>Hombre</option>
+                    <option>Mujer</option>
+                    <option>Niño</option>
+                    <option>Niña</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="size"><b>  Talla </b></label>
+                <select name="sizeList" class="form-control combobox-style" id="sizeList">
+                    <option>XS</option>
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                    <option>XL</option>
+                    <option>XXL</option>
+                </select>
+            </div>
+
+            <button type="button" value="submit" id="saveBtn" onclick="saveProduct();">Guardar</button>
+
+        </div>
+
+        
+
+        <div class="container" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('clotheModal').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+    </form>
+</div>
+

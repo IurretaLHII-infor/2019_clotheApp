@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.3/custom-elements-es5-adapter.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+
+
+    <script>
+
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAhO47r8wbhxaFzxPPE67pOjce8MyY10tQ",
+            authDomain: "arropapp.firebaseapp.com",
+            databaseURL: "https://arropapp.firebaseio.com",
+            projectId: "arropapp",
+            storageBucket: "arropapp.appspot.com",
+            messagingSenderId: "721077952951"
+        };
+        firebase.initializeApp(config);
+
+        // Initialize Cloud Firestore through Firebase
+        var db = firebase.firestore();
+        var productImage ="";
+
+        function saveProduct() {
+            var productCategory = document.getElementById("categoryList").value;
+            var productName = document.getElementById("cName").value;
+            var productPrice = document.getElementById("cPrice").value;
+            var productSex = document.getElementById("sexList").value;
+            var productSize = document.getElementById("sizeList").value;
+            //var productImage = uploadImage();
+
+            if (productName != "" || productPrice != "") {
+                db.collection("ClothesProductList").add({
+                    category: productCategory,
+                    name: productName,
+                    price: productPrice,
+                    sex: productSex,
+                    size: productSize,
+                    image: productImage
+                })
+                    .then(function (docRef) {
+                        console.log("Document written with ID: ", docRef.id);
+                    })
+                    .catch(function (error) {
+                        console.error("Error adding document: ", error);
+                    });
+                resetForm();
+            } else {
+                window.alert("Insert name or price values!");
+            }
+
+            
+        }
+
+        function uploadImage(){
+
+            
+
+            // Create a root reference
+            var storageRef = firebase.storage().ref();
+
+            var file = document.getElementById("clothePhoto").files[0];
+            console.log(file);
+
+            storageRef.put(file).then(function(snapshot) {
+                console.log('Uploaded a blob or file!');
+                //productImage = snapshot;
+            });
+        }
+
+        function resetForm() {
+            document.getElementById("categoryList").value ="Pantalones";
+            document.getElementById("cName").value ="";
+            document.getElementById("cPrice").value = "";
+            document.getElementById("sexList").value = "Hombre";
+            document.getElementById("sizeList").value = "XS";
+        }
+
+        /*function getClothesProducts() {
+
+            var clotheList = [];
+
+            db.collection("ClothesProductList").get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    // doc.data() is never undefined for query doc snapshots
+                    console.log(doc.id, " => ", doc.data());
+                    clotheList.push(doc.data());
+                });
+                console.log("Clothe List => ", clotheList);
+                return clotheList;
+        });
+  
+        }*/
+
+        // Add a second document with a generated ID.
+        /*db.collection("users").add({
+            first: "Alan",
+            middle: "Mathison",
+            last: "Turing",
+            born: 1912
+        })
+            .then(function (docRef) {
+                console.log("Document written with ID: ", docRef.id);
+            })
+            .catch(function (error) {
+                console.error("Error adding document: ", error);
+            });*/
+
+
+    </script>
+
+    <!--<script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+        var modal2 = document.getElementById('id02');
+        var modal3 = document.getElementById('clotheModal');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            else if (event.target == modal2) {
+                modal.style.display = "none";
+            } else if (event.target == clotheModal) {
+                modal.style.display = "none";
+            }
+        }
+
+
+    </script>-->
+
+    <script language="javascript" type="text/javascript">
+
+        function checkPass() {
+            //Store the password field objects into variables ...
+            var pass1 = document.getElementById('pass');
+            var pass2 = document.getElementById('comfpass');
+            //Store the Confimation Message Object ...
+            var message = document.getElementById('confirmMessage');
+            //Set the colors we will be using ...
+            var goodColor = "#66cc66";
+            var badColor = "#ff6666";
+            //Compare the values in the password field
+            //and the confirmation field
+            if (pass1.value == pass2.value) {
+                //The passwords match.
+                //Set the color to the good color and inform
+                //the user that they have entered the correct password
+                pass2.style.backgroundColor = goodColor;
+                message.style.color = goodColor;
+                message.innerHTML = "Passwords Match!"
+            } else {
+                //The passwords do not match.
+                //Set the color to the bad color and
+                //notify the user.
+                pass2.style.backgroundColor = badColor;
+                message.style.color = badColor;
+                message.innerHTML = "Passwords Do Not Match!"
+            }
+
+        }
+
+    </script>
+
+    <script>
+
+        var isLogged = false;
+
+        function signUpButton() {
+            var userName = document.getElementById("username").value;
+            var userPassword = document.getElementById("pass").value;
+            var userEmail = document.getElementById("email").value;
+            var modalSign = document.getElementById("id01");
+            //Create users
+            firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword)
+                .then(function (user) {
+                    var user = firebase.auth().currentUser;
+                    //setUserInfo("", "", userName, userEmail, user.uid);
+                    window.alert("User created succesfully, welcome " + user);
+                    
+                })
+                .catch(function (error) {
+                    // no `if (error)` is needed here: if `catch` is called, there was an error
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+
+                    window.alert("There went something wrong : " + errorMessage);
+                });
+        }
+
+        function logOut() {
+            if(isLogged){
+                firebase.auth().signOut().then(function () {
+                    window.alert("Loged Out");
+                    isLogged = false;
+                }).catch(function (error) {
+                    window.alert("Error :" + error);
+                });
+            } 
+        }
+
+        function getCurrentUser() {
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    console.log("User is signed in.");
+                    isLogged = true;
+                } else {
+                    console.log("No user is signed in.");
+                    isLogged = false;
+                }
+            });
+        }
+
+        function signInButton() {
+            var userPassword = document.getElementById("userPass").value;
+            var userEmail = document.getElementById("userEmail").value;
+            //Existing users
+            firebase.auth().signInWithEmailAndPassword(userEmail, userPassword).then(function (user) {
+                var user = firebase.auth().currentUser;
+                //setUserInfo("", "", userName, userEmail, user.uid);
+                alert("Login succesfully");
+                isLogged = true;
+                return true;
+            })
+                .catch(function (error) {
+                    // no `if (error)` is needed here: if `catch` is called, there was an error
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+
+                    window.alert("There went something wrong : " + errorMessage);
+                    return false;
+                });
+        }
+
+    </script>
+
+    <meta charset="UTF-8"> 
+    <title>Ionic App</title>
+
+    <base href="/" />
+    
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- add to homescreen for ios -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+</head>
+
+<body>
+  <app-root></app-root>
+  <ion-fab vertical="bottom" horizontal="bottom">
+      <ion-fab-button>Social</ion-fab-button>
+    
+      <ion-fab-list side="top">
+        <ion-fab-button href="https://es-es.facebook.com/"><ion-icon name="logo-facebook" ></ion-icon></ion-fab-button>
+        <ion-fab-button href="https://www.youtube.com/"><ion-icon name="logo-youtube" ></ion-icon></ion-fab-button>
+      </ion-fab-list>
+    
+      <ion-fab-list side="end">
+        <ion-fab-button href="https://www.instagram.com/?hl=es"><ion-icon name="logo-instagram" ></ion-icon></ion-fab-button>
+        <ion-fab-button href="https://twitter.com/?lang=es"><ion-icon name="logo-twitter" ></ion-icon></ion-fab-button>
+      </ion-fab-list>
+    
+    </ion-fab>
+
+
+</body>
+
+</html>
+
