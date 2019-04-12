@@ -13,9 +13,9 @@
 
 
 <ion-content>
-    <ion-card *ngFor="let item of clotheList">
+    <ion-card *ngFor="let item of clotheList"><!-- onclick="document.getElementById('infoModal').style.display='block'"> -->
         <ion-card-header>
-            <img src="assets/icon/camiseta.png" class="image-clothe"/>
+            <img src="{{item.image}}" class="image-clothe" (click)="presentModal(item)"/>
             <ion-card-subtitle></ion-card-subtitle>
             <ion-card-title>{{ item.name }}</ion-card-title>
             </ion-card-header>
@@ -27,15 +27,26 @@
 
 </ion-content>
 
+<div id="infoModal" class="modal">
+    <form class="modal-content animate" action="/action_page.php">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('infoModal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        </div>
+    </form>
+
+</div>
+
+
 <div id="clotheModal" class="modal">
 
     <form class="modal-content animate" action="/action_page.php" name="addClotheForm">
         <div class="imgcontainer">
             <span onclick="document.getElementById('clotheModal').style.display='none'" class="close" title="Close Modal">&times;</span>
         </div>
+        <div><h1>Add Product</h1></div>
         <div class="container">
             <div class="file-container">
-                <input type="file" id="clothePhoto" name="file" onchange="uploadImage()">
+                <input type="file" class="file-select" id="clothePhoto" name="file">
                 <img id="cotheImg" src="">
             </div>
             <div>
@@ -62,6 +73,11 @@
             <div>
                 <label for="clothePrice"><b>Precio  </b></label>
                 <input type="number" placeholder="Inserta precio" name="cPrice" id="cPrice" required>
+            </div>
+
+            <div>
+                <label for="clotheStock"><b>Stock  </b></label>
+                <input type="number" placeholder="Inserta stock" name="cStock" id="cStock" required>
             </div>
 
             <div>

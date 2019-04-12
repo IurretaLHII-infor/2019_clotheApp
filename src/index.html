@@ -26,32 +26,22 @@
 
         // Initialize Cloud Firestore through Firebase
         var db = firebase.firestore();
-        var productImage ="";
+        
 
         function saveProduct() {
-            var productCategory = document.getElementById("categoryList").value;
-            var productName = document.getElementById("cName").value;
-            var productPrice = document.getElementById("cPrice").value;
-            var productSex = document.getElementById("sexList").value;
-            var productSize = document.getElementById("sizeList").value;
-            //var productImage = uploadImage();
+            
+            var _clothe = {
+                productCategory : document.getElementById("categoryList").value,
+                productName : document.getElementById("cName").value,
+                productPrice : document.getElementById("cPrice").value,
+                productStock : document.getElementById("cStock").value,
+                productSex : document.getElementById("sexList").value,
+                productSize : document.getElementById("sizeList").value,
+                productImage : "/assets/icon/camiseta.png"
+            };
 
-            if (productName != "" || productPrice != "") {
-                db.collection("ClothesProductList").add({
-                    category: productCategory,
-                    name: productName,
-                    price: productPrice,
-                    sex: productSex,
-                    size: productSize,
-                    image: productImage
-                })
-                    .then(function (docRef) {
-                        console.log("Document written with ID: ", docRef.id);
-                    })
-                    .catch(function (error) {
-                        console.error("Error adding document: ", error);
-                    });
-                resetForm();
+            if (_clothe.productName != "" || _clothe.productPrice != "") {
+                uploadImage(_clothe);
             } else {
                 window.alert("Insert name or price values!");
             }
@@ -59,83 +49,73 @@
             
         }
 
-        function uploadImage(){
-
-            
-
+        function uploadImage(item){
             // Create a root reference
             var storageRef = firebase.storage().ref();
 
             var file = document.getElementById("clothePhoto").files[0];
-            console.log(file);
 
-            storageRef.put(file).then(function(snapshot) {
-                console.log('Uploaded a blob or file!');
-                //productImage = snapshot;
+            console.log(file);
+            if(file!=undefined){
+                var imagesRef = storageRef.child('images/'+ file.name).put(file);
+                imagesRef.on('state_changed', (snapshot) => {
+                // Observe state change events such as progress, pause, and resume
+                }, (error) => {
+                    // Handle unsuccessful uploads
+                    console.log(error);
+                }, () => {
+                    // Do something once upload is complete
+                    getImageUrl(item, file.name);
+                    console.log('Uploaded a blob or file!');
+                });
+            }else{
+                saveInDataBase(item);
+            } 
+
+        }
+        function saveInDataBase(item){
+            db.collection("ClothesProductList").add({
+                    category: item.productCategory,
+                    name: item.productName,
+                    price: item.productPrice,
+                    stock: item.productStock,
+                    sex: item.productSex,
+                    size: item.productSize,
+                    image: item.productImage
+                })
+                    .then(function (docRef) {
+                        console.log("Document written with ID: ", docRef.id);
+                    })
+                    .catch(function (error) {
+                        console.error("Error adding document: ", error);
+                    });
+                    resetForm();
+        }
+
+        function getImageUrl(item, fileName){
+            var storageRef = firebase.storage().ref();
+            storageRef.child('images/' + fileName).getDownloadURL().then(function(url) {
+            // `url` is the download URL for 'images/stars.jpg'
+                console.log('url =>' + url);    
+                item.productImage = url;
+                saveInDataBase(item);
+
+            }).catch(function(error) {
+                console.log('Something wrong getting url from ' + file.name);    
             });
+            
         }
 
         function resetForm() {
+            document.getElementById("clothePhoto").value="";
             document.getElementById("categoryList").value ="Pantalones";
             document.getElementById("cName").value ="";
             document.getElementById("cPrice").value = "";
+            document.getElementById("cStock").value = "";
             document.getElementById("sexList").value = "Hombre";
             document.getElementById("sizeList").value = "XS";
         }
-
-        /*function getClothesProducts() {
-
-            var clotheList = [];
-
-            db.collection("ClothesProductList").get().then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    // doc.data() is never undefined for query doc snapshots
-                    console.log(doc.id, " => ", doc.data());
-                    clotheList.push(doc.data());
-                });
-                console.log("Clothe List => ", clotheList);
-                return clotheList;
-        });
-  
-        }*/
-
-        // Add a second document with a generated ID.
-        /*db.collection("users").add({
-            first: "Alan",
-            middle: "Mathison",
-            last: "Turing",
-            born: 1912
-        })
-            .then(function (docRef) {
-                console.log("Document written with ID: ", docRef.id);
-            })
-            .catch(function (error) {
-                console.error("Error adding document: ", error);
-            });*/
-
-
     </script>
-
-    <!--<script>
-        // Get the modal
-        var modal = document.getElementById('id01');
-        var modal2 = document.getElementById('id02');
-        var modal3 = document.getElementById('clotheModal');
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-            else if (event.target == modal2) {
-                modal.style.display = "none";
-            } else if (event.target == clotheModal) {
-                modal.style.display = "none";
-            }
-        }
-
-
-    </script>-->
 
     <script language="javascript" type="text/javascript">
 
@@ -269,7 +249,7 @@
         <ion-fab-button href="https://www.youtube.com/"><ion-icon name="logo-youtube" ></ion-icon></ion-fab-button>
       </ion-fab-list>
     
-      <ion-fab-list side="end">
+      <ion-fab-list side="start">
         <ion-fab-button href="https://www.instagram.com/?hl=es"><ion-icon name="logo-instagram" ></ion-icon></ion-fab-button>
         <ion-fab-button href="https://twitter.com/?lang=es"><ion-icon name="logo-twitter" ></ion-icon></ion-fab-button>
       </ion-fab-list>
