@@ -3,11 +3,12 @@
     "",
     "\\src",
     "\\src\\app",
+    "\\src\\app\\modal-page",
     "\\src\\app\\tab1",
     "\\src\\app\\tab2",
     "\\src\\assets",
     "\\src\\assets\\icon"
   ],
-  "SelectedNode": "\\src\\app\\tab2\\tab2.page.html",
+  "SelectedNode": "\\src\\app\\tab2\\tab2.page.ts",
   "PreviewInSolutionExplorer": false
 }

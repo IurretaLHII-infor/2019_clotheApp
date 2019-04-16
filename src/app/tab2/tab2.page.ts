@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-//import { ModalPagePage } from '../modal-page/modal-page.page';
+import { ModalPagePage } from '../modal-page/modal-page.page';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 
@@ -14,8 +14,7 @@ export class Tab2Page {
 
   clotheList = [];
 
-  constructor(public modalController: ModalController) {
-  }
+  constructor(private controller: ModalController) { }
 
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
@@ -38,14 +37,51 @@ export class Tab2Page {
         self.clotheList.push(doc.data());
         });
       });
-  }
+    }
 
-  /*async presentModal(item) {
+    async newProduct() {
+        let product = { name: "", description: "" };
+
+        //create a modal within ModalController instance
+        const modal = await this.controller.create({
+            //modal will be a ProdutPage
+            component: ModalPagePage,
+            //send the product to modal as 'entity' keyed param
+            componentProps: { 'entity': product },
+        });
+
+        //register the modal closed callback
+        modal.onDidDismiss().then(response => {
+            if (response.data) {
+                //add saved product to list
+                this.clotheList.push(response.data);
+            }
+            else {
+                //modal cancelled. Nothing to so.
+            }
+        });
+
+        return await modal.present();
+    }
+
+    /**
+     * Edit Product Modal
+     */
+    async updateProduct(product: {}) {
+        const modal = await this.controller.create({
+            component: ModalPagePage,
+            componentProps: { 'entity': product },
+        });
+
+        return await modal.present();
+    }
+
+  async presentModal(item) {
     console.log(item);
-    const modal = await this.modalController.create({
+      const modal = await this.controller.create({
       component: ModalPagePage,
       componentProps: item,
     });
     return await modal.present();
-  }*/
+  }
 }

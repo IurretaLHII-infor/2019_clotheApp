@@ -13,9 +13,9 @@
 
 
 <ion-content>
-    <ion-card *ngFor="let item of clotheList"><!-- onclick="document.getElementById('infoModal').style.display='block'"> -->
+    <ion-card *ngFor="let item of clotheList" (click)="presentModal(item)"><!-- onclick="document.getElementById('infoModal').style.display='block'"> -->
         <ion-card-header>
-            <img src="{{item.image}}" class="image-clothe" (click)="presentModal(item)"/>
+            <img src="{{item.image}}" class="image-clothe" />
             <ion-card-subtitle></ion-card-subtitle>
             <ion-card-title>{{ item.name }}</ion-card-title>
             </ion-card-header>
