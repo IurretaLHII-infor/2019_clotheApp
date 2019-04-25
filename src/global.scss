@@ -11,9 +11,32 @@
 @import '~@ionic/angular/css/flex-utils.css';
 
 
-.fab-vertical-bottom {
-    bottom: 65px;
-    margin-left: 82%;
+.fab-vertical-top {
+   top: 0px;
+}
+
+.margin-left-sized{
+    font-size: large;
+    margin-left: 10px
+}
+
+.larger {
+    font-size: 40px;
+    margin: 4px;
+    color: #ff0000;
+}
+
+.align-left {
+    margin-left: 0%;
+    margin-bottom: 5px;
+}
+
+.align-right {
+    margin-left: 60%;
+    margin-bottom: 5px;
+}
+.colorfull {
+    color: #f44336;
 }
 
 .image-clothe {

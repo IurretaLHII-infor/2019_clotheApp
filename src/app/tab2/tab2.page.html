@@ -13,16 +13,20 @@
 
 
 <ion-content>
-    <ion-card *ngFor="let item of clotheList" (click)="presentModal(item)"><!-- onclick="document.getElementById('infoModal').style.display='block'"> -->
+    <ion-card *ngFor="let item of clotheList">
+        <!-- onclick="document.getElementById('infoModal').style.display='block'"> -->
+         
+        <ion-icon id="{{item.id}}" onclick="" name="trash" class="larger"></ion-icon>
         <ion-card-header>
-            <img src="{{item.image}}" class="image-clothe" />
+            <img src="{{item.data().image}}" class="image-clothe larger" />
             <ion-card-subtitle></ion-card-subtitle>
-            <ion-card-title>{{ item.name }}</ion-card-title>
-            </ion-card-header>
-                
-            <ion-card-content>
-                    {{ item.price }}EUR
-            </ion-card-content>
+            <ion-card-title>{{ item.data().name }}</ion-card-title>
+
+        </ion-card-header>
+
+        <ion-card-content>
+            <a class="align-left">{{ item.data().price }}EUR</a><a class="align-right">Size: {{item.data().size}}</a>
+        </ion-card-content>
     </ion-card>
 
 </ion-content>
@@ -43,7 +47,7 @@
         <div class="imgcontainer">
             <span onclick="document.getElementById('clotheModal').style.display='none'" class="close" title="Close Modal">&times;</span>
         </div>
-        <div><h1>Add Product</h1></div>
+        <div><h1> Add Product</h1></div>
         <div class="container">
             <div class="file-container">
                 <input type="file" class="file-select" id="clothePhoto" name="file">

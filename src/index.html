@@ -49,6 +49,23 @@
             
         }
 
+        function deleteProduct() {
+            var choose = confirm("Are you sure about deleting this product?");
+            console.log("Choose " + choose);
+            
+            if (choose) {
+                db.collection("ClothesProductList").doc(itemId).delete().then(function () {
+                    console.log("Document successfully deleted!");
+                }).catch(function (error) {
+                    console.error("Error removing document: ", error);
+                });
+            }
+        }
+
+        function deleteImage() {
+
+        }
+
         function uploadImage(item){
             // Create a root reference
             var storageRef = firebase.storage().ref();
@@ -177,9 +194,11 @@
         }
 
         function logOut() {
+            var contactIcon = document.getElementById("loggedImg");
             if(isLogged){
                 firebase.auth().signOut().then(function () {
                     window.alert("Loged Out");
+                    contactIcon.style.color = "#FF0000";
                     isLogged = false;
                 }).catch(function (error) {
                     window.alert("Error :" + error);
@@ -199,15 +218,27 @@
             });
         }
 
+        function isUserLogged() {
+            if (this.isLogged) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         function signInButton() {
             var userPassword = document.getElementById("userPass").value;
             var userEmail = document.getElementById("userEmail").value;
+            var contactIcon = document.getElementById("loggedImg");
+            var loginModal = document.getElementById('id01');
             //Existing users
             firebase.auth().signInWithEmailAndPassword(userEmail, userPassword).then(function (user) {
                 var user = firebase.auth().currentUser;
                 //setUserInfo("", "", userName, userEmail, user.uid);
-                alert("Login succesfully");
+                //alert("Login succesfully");
                 isLogged = true;
+                contactIcon.style.color = "#004DFF";
+                loginModal.style.display = 'none';
                 return true;
             })
                 .catch(function (error) {
@@ -241,10 +272,10 @@
 
 <body>
   <app-root></app-root>
-  <ion-fab vertical="bottom" horizontal="bottom">
+  <ion-fab vertical="top" horizontal="center">
       <ion-fab-button>Social</ion-fab-button>
     
-      <ion-fab-list side="top">
+      <ion-fab-list side="end">
         <ion-fab-button href="https://es-es.facebook.com/"><ion-icon name="logo-facebook" ></ion-icon></ion-fab-button>
         <ion-fab-button href="https://www.youtube.com/"><ion-icon name="logo-youtube" ></ion-icon></ion-fab-button>
       </ion-fab-list>
