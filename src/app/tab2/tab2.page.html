@@ -1,11 +1,11 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="secondary">
-            <ion-button onclick="document.getElementById('clotheModal').style.display='block'">
+            <ion-button class="align-right" onclick="document.getElementById('clotheModal').style.display='block'">
                 <ion-icon slot="icon-only" name="add"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>
+        <ion-title class="title">
             SHOP
         </ion-title>
     </ion-toolbar>
@@ -15,8 +15,9 @@
 <ion-content>
     <ion-card *ngFor="let item of clotheList">
         <!-- onclick="document.getElementById('infoModal').style.display='block'"> -->
-         
-        <ion-icon id="{{item.id}}" onclick="" name="trash" class="larger"></ion-icon>
+
+        <ion-icon id="{{item.id}}" onclick="deleteProduct(this.id)" name="close-circle" class="larger"></ion-icon>
+        <ion-icon name="star" id="starBtn" class="align-right larger" onclick="selectFav()"></ion-icon>
         <ion-card-header>
             <img src="{{item.data().image}}" class="image-clothe larger" />
             <ion-card-subtitle></ion-card-subtitle>

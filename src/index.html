@@ -26,7 +26,7 @@
 
         // Initialize Cloud Firestore through Firebase
         var db = firebase.firestore();
-        
+        var isFav = false;
 
         function saveProduct() {
             
@@ -49,7 +49,7 @@
             
         }
 
-        function deleteProduct() {
+        function deleteProduct(itemId) {
             var choose = confirm("Are you sure about deleting this product?");
             console.log("Choose " + choose);
             
@@ -64,6 +64,19 @@
 
         function deleteImage() {
 
+        }
+
+        function selectFav() {
+            var star = document.getElementById("starBtn");
+            if (isFav) {
+                star.style.color = "#858585";
+                this.isFav = false;
+                
+            } else {
+                star.style.color = "#fffB00";
+                this.isFav = true
+            }
+            console.log("Is favourite? " + isFav);
         }
 
         function uploadImage(item){
@@ -197,8 +210,8 @@
             var contactIcon = document.getElementById("loggedImg");
             if(isLogged){
                 firebase.auth().signOut().then(function () {
-                    window.alert("Loged Out");
-                    contactIcon.style.color = "#FF0000";
+                    //window.alert("Loged Out");
+                    contactIcon.style.color = "#000000";
                     isLogged = false;
                 }).catch(function (error) {
                     window.alert("Error :" + error);
