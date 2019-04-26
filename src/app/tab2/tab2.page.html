@@ -17,7 +17,7 @@
         <!-- onclick="document.getElementById('infoModal').style.display='block'"> -->
 
         <ion-icon id="{{item.id}}" onclick="deleteProduct(this.id)" name="close-circle" class="larger"></ion-icon>
-        <ion-icon name="star" id="starBtn" class="align-right larger" onclick="selectFav()"></ion-icon>
+        <ion-icon name="star" id="{{item.id}}_fav" data-active="disable" class="align-right larger" onclick="selectFav(this.id)"></ion-icon>
         <ion-card-header>
             <img src="{{item.data().image}}" class="image-clothe larger" />
             <ion-card-subtitle></ion-card-subtitle>
