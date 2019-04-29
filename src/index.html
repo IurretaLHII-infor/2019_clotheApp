@@ -44,12 +44,11 @@
 
             if (_clothe.productName != "" || _clothe.productPrice != "") {
                 uploadImage(_clothe);
-                reloadCurrent();
+                
             } else {
                 window.alert("Insert name or price values!");
             }
-
-
+           
         }
 
         function deleteProduct(itemId) {
@@ -125,6 +124,7 @@
             })
                 .then(function (docRef) {
                     console.log("Document written with ID: ", docRef.id);
+                    reloadCurrent();
                 })
                 .catch(function (error) {
                     console.error("Error adding document: ", error);
