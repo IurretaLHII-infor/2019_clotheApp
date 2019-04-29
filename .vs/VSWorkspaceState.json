@@ -6,8 +6,9 @@
     "\\src\\app\\modal-page",
     "\\src\\app\\tab1",
     "\\src\\app\\tab2",
-    "\\src\\assets\\icon"
+    "\\src\\app\\tab3",
+    "\\src\\assets"
   ],
-  "SelectedNode": "\\src\\app\\tab2\\tab2.page.ts",
+  "SelectedNode": "\\src\\index.html",
   "PreviewInSolutionExplorer": false
 }
