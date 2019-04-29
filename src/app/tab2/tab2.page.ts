@@ -1,79 +1,59 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ModalPagePage } from '../modal-page/modal-page.page';
+//import { ModalPagePage } from '../modal-page/modal-page.page';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+    selector: 'app-tab2',
+    templateUrl: 'tab2.page.html',
+    styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
 
-  clotheList = [];
+    clotheList = [];
 
-  constructor(private controller: ModalController) { }
+    constructor(private controller: ModalController) { }
 
-// tslint:disable-next-line: use-life-cycle-interface
-  ngOnInit() {
-  // tslint:disable-next-line: prefer-const
+    // tslint:disable-next-line: use-life-cycle-interface
+    ngOnInit() {
+        // tslint:disable-next-line: prefer-const
 
-    const db = firebase.firestore();
-    const self = this;
-  // tslint:disable-next-line: prefer-const
-    db.collection('ClothesProductList').get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-        console.log(doc.id, ' => ', doc.data());
-        self.clotheList.push(doc);
-        });
-      });
-  }
-
-    async newProduct() {
-        let product = { name: "", description: "" };
-
-        //create a modal within ModalController instance
-        const modal = await this.controller.create({
-            //modal will be a ProdutPage
-            component: ModalPagePage,
-            //send the product to modal as 'entity' keyed param
-            componentProps: { 'entity': product },
+        const db = firebase.firestore();
+        const self = this;
+        // tslint:disable-next-line: prefer-const
+        db.collection('ClothesProductList').get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                console.log(doc.id, ' => ', doc.data());
+                self.clotheList.push(doc);
+            });
         });
 
-        //register the modal closed callback
-        modal.onDidDismiss().then(response => {
-            if (response.data) {
-                //add saved product to list
-                this.clotheList.push(response.data);
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                console.log("User is signed in.");
+                console.log("User: " + user.uid + ", " + user.email);
+                if (user.uid != 'uyYPiQN3A4RPtIjINrbJzfhCC1q1') {
+                    const myElement = document.getElementById('addProductBtn');
+                    console.log("myElement: " + myElement.id);
+                    myElement.setAttribute("disabled", "true");
+                    myElement.style.display = "none";
+                }
+
+            } else {
+                console.log("No user is signed in.");
+                const myElement = document.getElementById('addProductBtn');
+                const favBtn = document.getElementsByName('star');
+                console.log("myElement: " + myElement.id);
+                myElement.setAttribute("disabled", "true");
+                myElement.style.display = "none";
+                console.log("start id: " + favBtn);
+                //favBtn.setAttribute("disabled", "true");
+                //favBtn.style.display = "none";
+                //document.getElementsByName("star")[0].setAttribute("disabled", "true");
+
             }
-            else {
-                //modal cancelled. Nothing to so.
-            }
         });
-
-        return await modal.present();
     }
-
-    /**
-     * Edit Product Modal
-     */
-    async updateProduct(product: {}) {
-        const modal = await this.controller.create({
-            component: ModalPagePage,
-            componentProps: { 'entity': product },
-        });
-
-        return await modal.present();
-    }
-
-  async presentModal(item) {
-    console.log(item);
-      const modal = await this.controller.create({
-      component: ModalPagePage,
-      componentProps: item,
-    });
-    return await modal.present();
-  }
 }

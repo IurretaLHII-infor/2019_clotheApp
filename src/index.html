@@ -289,10 +289,9 @@
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
                     console.log("User is signed in.");
-                    console.log("User: " + user.userName + ", " + user.email);
+                    console.log("User: " + user.uid + ", " + user.email);
                     isLogged = true;
                     contactIcon.style.color = "#004DFF";
-
                 } else {
                     console.log("No user is signed in.");
                     isLogged = false;
@@ -300,6 +299,7 @@
                 }
             });
         }
+
 
         function isUserLogged() {
             getCurrentUser();
@@ -334,6 +334,7 @@
                     return false;
                 });
         }
+
     </script>
 
 
