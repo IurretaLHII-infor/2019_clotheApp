@@ -44,11 +44,11 @@
 
             if (_clothe.productName != "" || _clothe.productPrice != "") {
                 uploadImage(_clothe);
-                
+
             } else {
                 window.alert("Insert name or price values!");
             }
-           
+
         }
 
         function deleteProduct(itemId) {
@@ -188,37 +188,78 @@
 
         }
 
+        function checkEmail() {
+            var email1 = document.getElementById('email');
+            var email2 = document.getElementById('emailConf');
+
+            var message = document.getElementById('confirmMessage');
+            //Set the colors we will be using ...
+            var goodColor = "#66cc66";
+            var badColor = "#ff6666";
+            //Compare the values in the password field
+            //and the confirmation field
+            if (email1.value == email2.value) {
+                //The passwords match.
+                //Set the color to the good color and inform
+                //the user that they have entered the correct password
+                email2.style.backgroundColor = goodColor;
+                message.style.color = goodColor;
+                message.innerHTML = "Email Match!"
+            } else {
+                //The passwords do not match.
+                //Set the color to the bad color and
+                //notify the user.
+                email2.style.backgroundColor = badColor;
+                message.style.color = badColor;
+                message.innerHTML = "Email Do Not Match!"
+            }
+        }
+
     </script>
 
     <script>
 
         var isLogged = false;
 
+
         function signUpButton() {
             var userName = document.getElementById("username").value;
             var userPassword = document.getElementById("pass").value;
             var userEmail = document.getElementById("email").value;
-            var modalSign = document.getElementById("id01");
+            var userEmailConf = document.getElementById("emailConf").value;
+            var modalSign = document.getElementById("id02");
+            var loginModal = document.getElementById('id01');
+            var contactIcon = document.getElementById("loggedImg");
             //Create users
-            firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword)
-                .then(function (user) {
-                    var user = firebase.auth().currentUser;
-                    //setUserInfo("", "", userName, userEmail, user.uid);
-                    window.alert("User created succesfully, welcome " + user);
 
-                })
-                .catch(function (error) {
-                    // no `if (error)` is needed here: if `catch` is called, there was an error
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
+            if (userEmail != userEmailConf) {
+                alert("EMAILS NOT MATCH");
+            } else {
+                firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword)
+                    .then(function (user) {
+                        //var user = firebase.auth().currentUser;
+                        //setUserInfo("", "", userName, userEmail, user.uid);
+                        verify();
+                        window.alert("User created succesfully, welcome " + userName);
+                        modalSign.style.display = 'none';
+                        isLogged = true;
+                        contactIcon.style.color = "#004DFF";
+                        loginModal.style.display = 'none';
+                    })
+                    .catch(function (error) {
+                        // no `if (error)` is needed here: if `catch` is called, there was an error
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
 
-                    window.alert("There went something wrong : " + errorMessage);
-                });
+                        window.alert("There went something wrong : " + errorMessage);
+                    });
+            }
         }
 
         function logOut() {
+            //getCurrentUser();
             var contactIcon = document.getElementById("loggedImg");
-            if (isLogged) {
+            if (isUserLogged) {
                 firebase.auth().signOut().then(function () {
                     //window.alert("Loged Out");
                     contactIcon.style.color = "#000000";
@@ -229,15 +270,33 @@
             }
         }
 
+        function verify() {
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user.emailVerified) {
+                    console.log('Email is verified');
+                }
+                else {
+                    console.log('Email is not verified');
+                    alert("You have to verify your email account. Look at your email!");
+                    user.sendEmailVerification();
+                }
+            });
+        }
+
         function getCurrentUser() {
+            var contactIcon = document.getElementById("loggedImg");
+
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
                     console.log("User is signed in.");
-                    console.log("User: " + user);
+                    console.log("User: " + user.userName + ", " + user.email);
                     isLogged = true;
+                    contactIcon.style.color = "#004DFF";
+
                 } else {
                     console.log("No user is signed in.");
                     isLogged = false;
+                    contactIcon.style.color = "#000000";
                 }
             });
         }
@@ -258,7 +317,7 @@
             var loginModal = document.getElementById('id01');
             //Existing users
             firebase.auth().signInWithEmailAndPassword(userEmail, userPassword).then(function (user) {
-                var user = firebase.auth().currentUser;
+                //var user = firebase.auth().currentUser;
                 //setUserInfo("", "", userName, userEmail, user.uid);
                 //alert("Login succesfully");
                 isLogged = true;
@@ -275,8 +334,8 @@
                     return false;
                 });
         }
-
     </script>
+
 
     <meta charset="UTF-8">
     <title>Ionic App</title>
@@ -296,8 +355,7 @@
 </head>
 
 <body>
-  <app-root></app-root>
+    <app-root></app-root>
 </body>
 
 </html>
-

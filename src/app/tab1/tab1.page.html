@@ -14,7 +14,7 @@
             <ion-icon slot="icon-only" name="exit"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <ion-title>HOME</ion-title>
+        <ion-title class="title">HOME</ion-title>
       </ion-toolbar>
 </ion-header>
 
@@ -71,8 +71,6 @@
         <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" ng-model="uPass" name="upass" id="userPass" required>
 
-        <span id="confirmMessage" class="confirmMessage"></span>
-          
         <button type="button" value="submit" id="login" onclick="signInButton();">Login</button>
         <label>
           <input type="checkbox" checked="checked" name="remember"> Remember me
@@ -96,20 +94,23 @@
         </div>
     
         <div class="container">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="uname" id="username" required>
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" id="username" required>
 
-          <label for="uname"><b>Email</b></label>
-          <input type="text" placeholder="Enter Email" name="email" id="email" required>
-    
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" id="pass" required>
+            <label for="umail"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
-          <label for="psw"><b>Comfirm Password</b></label>
-          <input type="password" placeholder="Repeat Password" name="compsw" id="comfpass" onkeyup="checkPass(); return false;" required>
-          <span id="confirmMessage" class="confirmMessage"></span>
-            
-          <button type="button" onclick="signUpButton();">Save</button>
+            <label for="umail"><b>Comfirm Email</b></label>
+            <input type="text" placeholder="Repeat Email" name="emailConf" id="emailConf" onkeyup="checkEmail(); return false;" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" id="pass" required>
+
+            <label for="psw"><b>Comfirm Password</b></label>
+            <input type="password" placeholder="Repeat Password" name="compsw" id="comfpass" onkeyup="checkPass(); return false;" required>
+            <span id="confirmMessage" class="confirmMessage"></span>
+
+            <button type="button" onclick="signUpButton();">Save</button>
         </div>
     
         <div class="container" style="background-color:#f1f1f1">

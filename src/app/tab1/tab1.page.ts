@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-tab1',
@@ -8,7 +10,20 @@ import { Component } from '@angular/core';
 export class Tab1Page {
 
     ngOnInit() {
-        
+        // tslint:disable-next-line: prefer-const
+        var contactIcon = document.getElementById("loggedImg");
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                console.log("User is signed in.");
+                contactIcon.style.color = "#004DFF";
+
+            } else {
+                console.log("No user is signed in.");
+                contactIcon.style.color = "#000000";
+            }
+        });
     }
+        
 
 }

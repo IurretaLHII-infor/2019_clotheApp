@@ -19,15 +19,7 @@ export class Tab2Page {
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
   // tslint:disable-next-line: prefer-const
-      let config = {
-        apiKey: 'AIzaSyAhO47r8wbhxaFzxPPE67pOjce8MyY10tQ',
-        authDomain: 'arropapp.firebaseapp.com',
-        databaseURL: 'https://arropapp.firebaseio.com',
-        projectId: 'arropapp',
-        storageBucket: 'arropapp.appspot.com',
-        messagingSenderId: '721077952951'
-    };
-    firebase.initializeApp(config);
+
     const db = firebase.firestore();
     const self = this;
   // tslint:disable-next-line: prefer-const
