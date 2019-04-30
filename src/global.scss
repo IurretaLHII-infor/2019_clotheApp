@@ -192,6 +192,10 @@ background: linear-gradient(#400080, transparent), linear-gradient(200deg, #d047
     font-size: 36px;
 }
 
+.a {
+    color: inherit;
+} 
+
 .custom {
     box-shadow: 0;
     -webkit-box-shadow: none;
