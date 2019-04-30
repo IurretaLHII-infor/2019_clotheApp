@@ -152,10 +152,20 @@ background: linear-gradient(#400080, transparent), linear-gradient(200deg, #d047
     margin-left: 10px
 }
 
+.margin-right-sized{
+    margin-right: 10px;
+    font-size: 30px;
+    float: right;
+}
+
 .larger {
     font-size: 40px;
     margin: 4px;
     color: #858585;
+}
+
+.resize-bigger{
+    font-size: 30;
 }
 
 .title{
@@ -173,8 +183,13 @@ background: linear-gradient(#400080, transparent), linear-gradient(200deg, #d047
 .set-right {
     float: right;
     margin-bottom: 5px;
-    font-size: 15px;
+    font-size: 30px;
     background: transparent;
+}
+
+.margin-resize{
+    margin-left: 20px;
+    font-size: 36px;
 }
 
 .custom {

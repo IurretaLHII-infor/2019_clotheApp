@@ -20,7 +20,8 @@
         <!-- onclick="document.getElementById('infoModal').style.display='block'"> -->
 
         <ion-icon id="{{item.id}}" onclick="deleteProduct(this.id)" name="close-circle" class="larger"></ion-icon>
-        <ion-button id="favBtn" class="set-right"><ion-icon name="star" id="{{item.id}}_fav" data-active="disable" onclick="selectFav(this.id)"></ion-icon></ion-button>
+        <a id="favBtn" class="set-right"><ion-icon name="star" id="{{item.id}}_fav" data-active="disable" onclick="selectFav(this.id)"></ion-icon></a>
+        <a id="editBtn" class="margin-right-sized"><ion-icon id="{{item.id}}" name="create" onclick="openEditModal(this.id)"></ion-icon></a>
         <ion-card-header>
             <img src="{{item.data().image}}" class="image-clothe larger" />
             <ion-card-subtitle></ion-card-subtitle>
@@ -51,10 +52,10 @@
         <div class="imgcontainer">
             <span onclick="document.getElementById('clotheModal').style.display='none'" class="close" title="Close Modal">&times;</span>
         </div>
-        <div><h1> Add Product</h1></div>
+        <div><a class="margin-resize"> Add Product</a></div>
         <div class="container">
             <div class="file-container">
-                <input type="file" class="file-select" id="clothePhoto" name="file">
+                <input type="file" class="file-select" id="clothePhoto" name="file" multiple>
                 <img id="cotheImg" src="">
             </div>
             <div>
@@ -118,6 +119,76 @@
 
         <div class="container" style="background-color:#f1f1f1">
             <button type="button" onclick="document.getElementById('clotheModal').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div id="clotheModalEdit" class="modal">
+
+    <form class="modal-content animate" action="/action_page.php" name="addClotheForm">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('clotheModalEdit').style.display='none'" class="close" title="Close Modal">&times;</span>
+        </div>
+        <div><a class="margin-resize"> Update Product</a></div>
+        <div class="container">
+            <div>
+                <label for="category"><b>Categoria  </b></label>
+                <select name="categoryList" class="form-control combobox-style" id="ecategoryList">
+                    <option>Pantalones</option>
+                    <option>Camisas</option>
+                    <option>Camisetas</option>
+                    <option>Chaquetas</option>
+                    <option>Sudaderas</option>
+                    <option>Accesorios</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="clotheName"><b>Nombre</b></label>
+                <input type="text"  name="cName" id="eName" required>
+            </div>
+
+
+            <div>
+                <label for="clothePrice"><b>Precio  </b></label>
+                <input type="number"  name="cPrice" id="ePrice" required>
+            </div>
+
+            <div>
+                <label for="clotheStock"><b>Stock  </b></label>
+                <input type="number"  name="cStock" id="eStock" required>
+            </div>
+
+            <div>
+                <label for="sex"><b>Sexo </b></label>
+                <select name="sexList" class="form-control combobox-style" id="esexList">
+                    <option>Hombre</option>
+                    <option>Mujer</option>
+                    <option>Niño</option>
+                    <option>Niña</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="size"><b>  Talla </b></label>
+                <select name="sizeList" class="form-control combobox-style" id="esizeList">
+                    <option>XS</option>
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                    <option>XL</option>
+                    <option>XXL</option>
+                </select>
+            </div>
+
+            <button type="button" value="submit" data-imageurl="nulled" data-product="nulled" id="saveEditBtn" onclick="updateProduct()">Guardar</button>
+
+        </div>
+
+
+
+        <div class="container" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('clotheModalEdit').style.display='none'" class="cancelbtn">Cancel</button>
         </div>
     </form>
 </div>

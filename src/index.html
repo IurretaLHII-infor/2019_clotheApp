@@ -51,6 +51,76 @@
 
         }
 
+        function openEditModal(id) {
+
+            var docRef = db.collection("ClothesProductList").doc(id);
+            docRef.get().then(function(doc) {
+                if (doc.exists) {
+                    //console.log("Document data:", doc.data());
+                    product = doc.data();
+                    console.log("Product info: ", doc.data());
+                    var category = doc.data().category;
+                    console.log("Product info: ", category);
+                    var image = doc.data().image;
+                    var name = doc.data().name;
+                    var price = doc.data().price;
+                    var sex = doc.data().sex;
+                    var size = doc.data().size;
+                    var stock = doc.data().stock;
+
+                    document.getElementById('clotheModalEdit').style.display = 'block';
+                    document.getElementById("ecategoryList").value = category;
+                    document.getElementById("eName").value = name;
+                    document.getElementById("ePrice").value = price;
+                    document.getElementById("eStock").value = stock;
+                    document.getElementById("esexList").value= sex;
+                    document.getElementById("esizeList").value = size;
+
+                    var saveBtn = document.getElementById("saveEditBtn");
+                    saveBtn.dataset.product = id;
+                    saveBtn.dataset.imageurl = image;
+
+            } else {
+                // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                    return "";
+            }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+            //document.getElementById("clothePhoto").value= image;
+
+        }
+
+        function updateProduct() {
+            
+            var _clotheEdit = {
+                category: document.getElementById("ecategoryList").value,
+                name: document.getElementById("eName").value,
+                price: document.getElementById("ePrice").value,
+                stock: document.getElementById("eStock").value,
+                sex: document.getElementById("esexList").value,
+                size: document.getElementById("esizeList").value,
+                image: document.getElementById("saveEditBtn").dataset.imageurl
+            };
+
+            var saveBtn = document.getElementById("saveEditBtn");
+            console.log("saveBtn value: " + saveBtn.dataset.product + " / " + saveBtn.dataset.imageurl);
+            var docRef = db.collection("ClothesProductList").doc(saveBtn.dataset.product);
+
+            docRef.set(_clotheEdit)
+                .then(function () {
+                    console.log("Document updated");
+                    reloadCurrent();
+                })
+                .catch(function (error) {
+                    console.error("Error updated document: ", error);
+                });
+
+            
+
+        }
+
         function deleteProduct(itemId) {
             var choose = confirm("Are you sure about deleting this product?");
             console.log("Choose " + choose);
@@ -63,10 +133,6 @@
                     console.error("Error removing document: ", error);
                 });
             }
-        }
-
-        function deleteImage() {
-
         }
 
         function reloadCurrent() {
