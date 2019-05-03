@@ -13,17 +13,18 @@ import 'firebase/firestore';
 export class Tab2Page {
 
     clotheList = [];
+    db:firebase.firestore.Firestore;
 
-    constructor(private controller: ModalController) { }
+    constructor(private controller: ModalController) { 
+        this.db = firebase.firestore();
+    }
 
     // tslint:disable-next-line: use-life-cycle-interface
     ngOnInit() {
         // tslint:disable-next-line: prefer-const
-
-        const db = firebase.firestore();
         const self = this;
         // tslint:disable-next-line: prefer-const
-        db.collection('ClothesProductList').get().then(function (querySnapshot) {
+        this.db.collection('ClothesProductList').get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 console.log(doc.id, ' => ', doc.data());
                 self.clotheList.push(doc);
@@ -55,5 +56,20 @@ export class Tab2Page {
 
             }
         });
+    }
+
+     deleteProduct(item) {
+            console.log(item.data());
+            var choose = confirm("Are you sure about deleting this product?");
+            console.log("Choose " + choose);
+            //const self = this;
+            if (choose) {
+                this.db.collection("ClothesProductList").doc(item.id).delete().then(() => {
+                    console.log("Document successfully deleted!");
+                    this.clotheList.splice(this.clotheList.indexOf(item), 1);
+                }).catch(function (error) {
+                    console.error("Error removing document: ", error);
+                });
+            }
     }
 }
