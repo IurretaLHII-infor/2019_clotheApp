@@ -16,5 +16,5 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 
 export class main{
 
-    
+  
 }

@@ -20,10 +20,10 @@
         <!-- onclick="document.getElementById('infoModal').style.display='block'"> -->
 
         <a>
-            <ion-icon (click)="deleteProduct(item)" slot="icon-only" name="close-circle"></ion-icon>
+            <!--<ion-icon (click)="deleteProduct(item)" slot="icon-only" name="close-circle"></ion-icon>-->
         </a>
 
-        <!--<ion-icon id="{{item.id}}" onclick="deleteProduct(item)" name="close-circle" class="larger"></ion-icon>-->
+        <ion-icon id="{{item.id}}" onclick="deleteProduct(this.id)" name="close-circle" class="larger"></ion-icon>
         <a id="favBtn" class="set-right"><ion-icon name="star" id="{{item.id}}_fav" data-active="disable" onclick="selectFav(this.id)"></ion-icon></a>
         <a id="editBtn" class="margin-right-sized"><ion-icon id="{{item.id}}" name="create" onclick="openEditModal(this.id)"></ion-icon></a>
         <ion-card-header>

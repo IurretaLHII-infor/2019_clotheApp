@@ -42,11 +42,11 @@
                 productImage: "/assets/icon/camiseta.png"
             };
 
-            if (_clothe.productName != "" || _clothe.productPrice != "") {
+            if (_clothe.productName != "" || _clothe.productPrice != "" || _clothe.productStock !="") {
                 uploadImage(_clothe);
 
             } else {
-                window.alert("Insert name or price values!");
+                window.alert("Insert name, price values or stock!");
             }
         }
 
@@ -120,7 +120,7 @@
 
         }
 
-        /*function deleteProduct(itemId) {
+        function deleteProduct(itemId) {
             var choose = confirm("Are you sure about deleting this product?");
             console.log("Choose " + choose);
 
@@ -132,11 +132,9 @@
                     console.error("Error removing document: ", error);
                 });
             }
-        }*/
-
-        function reloadCurrent() {
-            location.reload();
         }
+
+        
 
         function selectFav(id) {
             var star = document.getElementById(id);
@@ -151,6 +149,10 @@
                 star.dataset.active = "enable"
             }
             console.log("Is active? " + star.dataset.active);
+        }
+
+        function reloadCurrent() {
+        location.reload();
         }
 
         function uploadImage(item) {

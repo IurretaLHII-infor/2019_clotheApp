@@ -57,19 +57,19 @@ export class Tab2Page {
             }
         });
     }
+    
 
-     deleteProduct(item) {
-            console.log(item.data());
+     /*deleteProductTab2(itemId) {
             var choose = confirm("Are you sure about deleting this product?");
             console.log("Choose " + choose);
             //const self = this;
             if (choose) {
-                this.db.collection("ClothesProductList").doc(item.id).delete().then(() => {
+                this.db.collection("ClothesProductList").doc(itemId).delete().then(() => {
                     console.log("Document successfully deleted!");
                     this.clotheList.splice(this.clotheList.indexOf(item), 1);
                 }).catch(function (error) {
                     console.error("Error removing document: ", error);
                 });
             }
-    }
+     }*/
 }

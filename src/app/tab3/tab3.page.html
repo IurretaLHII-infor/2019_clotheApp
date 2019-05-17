@@ -7,5 +7,32 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar id="searchbar" animated></ion-searchbar>
+  <ion-list (ionChange)="searchProduct()">
+      <ion-list-header>Search by</ion-list-header>
+      <ion-item>
+          <ion-label>Category</ion-label>
+          <ion-select placeholder="Select One" [(ngModel)]="selected">
+            <ion-select-option>Camisas</ion-select-option>
+            <ion-select-option>Pantalones</ion-select-option>
+            <ion-select-option>Camisetas</ion-select-option>
+            <ion-select-option>Chaquetas</ion-select-option>
+            <ion-select-option>Sudaderas</ion-select-option>
+            <ion-select-option>Accesorios</ion-select-option>
+          </ion-select>
+        </ion-item>  
+  </ion-list>
+  <ion-searchbar id="searchbar" animated [(ngModel)]="key" (ionChange)="searchProductByName()"></ion-searchbar>
+    
+  <ion-card *ngFor="let item of clotheList">
+      <ion-card-header>
+          <img src="{{item.image}}" class="image-clothe larger" />
+          <ion-card-subtitle></ion-card-subtitle>
+          <ion-card-title>{{ item.name }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+          <a class="align-left">{{ item.price }}EUR</a><a class="align-right">Size: {{item.size}}</a>
+      </ion-card-content>
+  </ion-card>
+
 </ion-content>
