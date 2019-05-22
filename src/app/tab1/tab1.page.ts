@@ -17,8 +17,11 @@ export class Tab1Page {
             if (user) {
                 console.log("User is signed in.");
                 contactIcon.style.color = "#004DFF";
+                if (user.uid == 'uyYPiQN3A4RPtIjINrbJzfhCC1q1') {
+                    contactIcon.style.color = "#00FFA6";
+                }
 
-            } else {
+            }else {
                 console.log("No user is signed in.");
                 contactIcon.style.color = "#000000";
             }
