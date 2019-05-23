@@ -4,6 +4,9 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+
 
 
 
@@ -17,4 +20,5 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 export class main{
 
   
+
 }

@@ -7,8 +7,9 @@
     "\\src\\app\\tab1",
     "\\src\\app\\tab2",
     "\\src\\app\\tab3",
+    "\\src\\app\\tabs",
     "\\src\\assets"
   ],
-  "SelectedNode": "\\src\\index.html",
+  "SelectedNode": "\\src\\app\\app.component.ts",
   "PreviewInSolutionExplorer": false
 }
